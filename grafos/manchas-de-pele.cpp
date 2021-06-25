@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+#define _ ios_base::sync_with_stdio(0);
+#define TAMN 1001
+
+using namespace std;
+int vis[TAMN][TAMN];
+int mat[TAMN][TAMN];
+int n, m, ans;
+
+void ff(int i, int j){
+	if(i>n || j>m || i<1 || j<1)
+		return;
+	if(vis[i][j] == 1 || mat[i][j]==0)
+		return;
+    vis[i][j]=1;
+	ff(i+1, j);
+	ff(i-1, j);
+	ff(i, j+1);
+	ff(i, j-1);
+}
+
+int main(){_
+    cin >> n >> m;
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=m; j++){
+            cin >> mat[i][j];
+            vis[i][j]=0;
+        }
+    }
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=m; j++){
+            if(mat[i][j]==1 && vis[i][j]==0){
+                ff(i, j);
+                ans++;
+            }
+        }
+    }
+    
+    cout << ans << endl;
+	return 0;
+}
